@@ -1,0 +1,14 @@
+source_subscription_id: "3682cfc7-582d-46de-82e9-c895ca6c421c"
+target_subscription_id: "3682cfc7-582d-46de-82e9-c895ca6c421c"
+
+registries:
+- name: "acr1oam"
+  resourceGroupName: "TestACR1"
+  repositories: 
+  - "nginx"
+  tags:
+  - "*"
+  target: 
+  - name: "acr2oam"
+    resourceGroupName: "TestACR2"
+    rePrefix: "pmp"
