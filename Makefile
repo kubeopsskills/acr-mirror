@@ -1,6 +1,6 @@
 TARGET_PATH = bin
 GOARCH = GOARCH=amd64
-VERSION = 1.0.0
+VERSION = 1.0.1
 
 buildWindows:
 	env GOOS=windows $(GOARCH) go build -o ./$(TARGET_PATH)/windows/acr-mirror.exe github.com/kubeopsskills/acr-mirror/cmd/acr
