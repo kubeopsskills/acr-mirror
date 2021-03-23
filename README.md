@@ -21,8 +21,8 @@ It's possible to filter by docker tags.
   - Windows: `winget install -e --id Golang.Go-Unstable`
 - make sure you have `CGO` enabled
   - `export CGO_ENABLED=1`
-- clone this repository to `$HOME/src/github.com/kubeopsskills/acr-mirror`
-- change your working directory to `$HOME/src/github.com/kubeopsskills/acr-mirror`
+- clone this repository to `$HOME/src/github.com/kubeopsskills/acr-mirror/cmd/acr`
+- change your working directory to `$HOME/src/github.com/kubeopsskills/acr-mirror/cmd/acr`
 - run `go install` to build and install the `acr-mirror` binary into your `$HOME/go/bin/` directory
   - alternative: `go build` to build the binary and put it in the current working directory
 
