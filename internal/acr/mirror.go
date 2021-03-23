@@ -43,7 +43,7 @@ func FromSourceRegistryToTargetRegistry(sourceRegistryClient containerregistry.R
 					}
 					targetRepositoryTags := make([]string, 0)
 
-					log.Info("Importing image %s to registry %s", repositoryURL+"/"+repositoryTag, targetRegistry.Name)
+					log.Infof("Importing image %s to registry %s", repositoryURL+"/"+repositoryTag, targetRegistry.Name)
 					targetRepositoryTags = append(targetRepositoryTags, targetRepositoryTag)
 					_, err := targetRegistryClient.ImportImage(ctx, targetRegistry.TargetResourceGroupName, targetRegistry.Name, containerregistry.ImportImageParameters{
 						Source: &containerregistry.ImportSource{
@@ -57,9 +57,9 @@ func FromSourceRegistryToTargetRegistry(sourceRegistryClient containerregistry.R
 						TargetTags: &targetRepositoryTags,
 					})
 					if err != nil {
-						log.Fatalf("Error importing image %s to registry %s: %v", repositoryURL+"/"+repositoryTag, targetRegistry.Name, err)
+						log.Infof("Error importing image %s to registry %s: %v", repositoryURL+"/"+repositoryTag, targetRegistry.Name, err)
 					}
-					log.Info("Imported image %s to registry %s", repositoryURL+"/"+repositoryTag, targetRegistry.Name)
+					log.Infof("Imported image %s to registry %s", repositoryURL+"/"+repositoryTag, targetRegistry.Name)
 				}
 			}
 
