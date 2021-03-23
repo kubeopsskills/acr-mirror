@@ -7,24 +7,17 @@ It's possible to filter by docker tags.
 <!-- TOC -->
 
 - [acr-mirror](#acr-mirror)
-    - [Install / Building](#install-building)
+    - [Install / Building](#installation)
     - [Using](#using)
         - [Update all repositories](#update-all-repositories)
     - [Example config.yaml](#example-configyaml)
 
 <!-- /TOC -->
 
-## Install / Building
+## Installation
 
-- make sure you got Go 1.16 or newer
-  - OSX: `brew install go`
-  - Windows: `winget install -e --id Golang.Go-Unstable`
-- make sure you have `CGO` enabled
-  - `export CGO_ENABLED=1`
-- clone this repository to `$HOME/src/github.com/kubeopsskills/acr-mirror/cmd/acr`
-- change your working directory to `$HOME/src/github.com/kubeopsskills/acr-mirror/cmd/acr`
-- run `go install` to build and install the `acr-mirror` binary into your `$HOME/go/bin/` directory
-  - alternative: `go build` to build the binary and put it in the current working directory
+Azure Container Registry Mirror Tool is available on Linux, macOS and Windows platforms.
+- Binaries for Linux, Windows and Mac are available as tarballs in the [release](https://github.com/kubeopsskills/acr-mirror/releases) page
 
 ## Using
 
