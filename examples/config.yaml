@@ -11,4 +11,5 @@ registries:
   target: 
   - name: "acr2oam"
     resourceGroupName: "TestACR2"
-    rePrefix: "pmp"
+    prefix: "pregolden"
+    rePrefix: "golden"
