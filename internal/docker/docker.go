@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/ryanuber/go-glob"
+	log "github.com/sirupsen/logrus"
 )
 
 type TagsResponse struct {
@@ -43,7 +44,7 @@ func FilterTags(tags []string, matchTags []string) []string {
 		if len(matchTags) > 0 {
 			for _, matchTag := range matchTags {
 				if !glob.Glob(matchTag, tag) {
-					// m.log.Debugf("Dropping tag '%s', it doesn't match glob pattern '%s'", remoteTag.Name, tag)
+					log.Debugf("Dropping tag '%s', it doesn't match glob pattern '%s'", tag, matchTag)
 					continue
 				}
 				res = append(res, tag)
@@ -78,15 +79,15 @@ func GetRemoteTags(registryName string, repositoryName string, username string, 
 		res, err = httpClient.Do(req)
 
 		if err != nil {
-			// log.Warningf("Failed to get %s, retrying", url)
+			log.Warningf("Failed to get %s, retrying", url)
 			retries--
 		} else if res.StatusCode == 429 {
 			sleepTime := getSleepTime(res.Header.Get("X-RateLimit-Reset"), time.Now())
-			// m.log.Infof("Rate limited on %s, sleeping for %s", url, sleepTime)
+			log.Infof("Rate limited on %s, sleeping for %s", url, sleepTime)
 			time.Sleep(sleepTime)
 			retries--
 		} else if res.StatusCode < 200 || res.StatusCode >= 300 {
-			// m.log.Warningf("Get %s failed with %d, retrying", url, res.StatusCode)
+			log.Warningf("Get %s failed with %d, retrying", url, res.StatusCode)
 			retries--
 		} else {
 			break

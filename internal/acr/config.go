@@ -2,7 +2,8 @@ package acr
 
 import (
 	"io/ioutil"
-	"log"
+
+	log "github.com/sirupsen/logrus"
 
 	"gopkg.in/yaml.v2"
 )
@@ -31,7 +32,7 @@ type Config struct {
 func (config *Config) GetConfig(configFileName string) *Config {
 	configYAMLFile, err := ioutil.ReadFile(configFileName)
 	if err != nil {
-		log.Fatalf("Error: #%v", err)
+		log.Fatalf("Error: %v", err)
 	}
 	err = yaml.Unmarshal(configYAMLFile, &config)
 	if err != nil {

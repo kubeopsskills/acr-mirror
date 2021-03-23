@@ -6,6 +6,7 @@ import (
 
 	"github.com/Azure/azure-sdk-for-go/services/containerregistry/mgmt/2019-05-01/containerregistry"
 	"github.com/kubeopsskills/acr-mirror/internal/docker"
+	log "github.com/sirupsen/logrus"
 )
 
 func FromSourceRegistryToTargetRegistry(sourceRegistryClient containerregistry.RegistriesClient, targetRegistryClient containerregistry.RegistriesClient, config Config, ctx context.Context) {
@@ -14,7 +15,7 @@ func FromSourceRegistryToTargetRegistry(sourceRegistryClient containerregistry.R
 	for _, sourceRegistry := range sourceRegistries {
 		registryCredentials, err := sourceRegistryClient.ListCredentials(ctx, sourceRegistry.SourceResourceGroupName, sourceRegistry.Name)
 		if err != nil {
-			panic(err)
+			log.Fatalf("Error getting credentials: %v", err)
 		}
 		username := *registryCredentials.Username
 		password := *(*registryCredentials.Passwords)[0].Value
@@ -23,7 +24,7 @@ func FromSourceRegistryToTargetRegistry(sourceRegistryClient containerregistry.R
 
 			tags, err := docker.GetRemoteTags(sourceRegistry.Name, repository, username, password)
 			if err != nil {
-				panic(err)
+				log.Fatalf("Error getting remote tags for %s from registry %s: %v", repository, sourceRegistry.Name, err)
 			}
 			tags = docker.FilterTags(tags, sourceRegistry.Tags)
 
@@ -41,8 +42,10 @@ func FromSourceRegistryToTargetRegistry(sourceRegistryClient containerregistry.R
 						targetRepositoryTag = repository + ":" + tag
 					}
 					targetRepositoryTags := make([]string, 0)
+
+					log.Info("Importing image %s to registry %s", repositoryURL+"/"+repositoryTag, targetRegistry.Name)
 					targetRepositoryTags = append(targetRepositoryTags, targetRepositoryTag)
-					targetRegistryClient.ImportImage(ctx, targetRegistry.TargetResourceGroupName, targetRegistry.Name, containerregistry.ImportImageParameters{
+					_, err := targetRegistryClient.ImportImage(ctx, targetRegistry.TargetResourceGroupName, targetRegistry.Name, containerregistry.ImportImageParameters{
 						Source: &containerregistry.ImportSource{
 							RegistryURI: &repositoryURL,
 							Credentials: &containerregistry.ImportSourceCredentials{
@@ -53,6 +56,10 @@ func FromSourceRegistryToTargetRegistry(sourceRegistryClient containerregistry.R
 						},
 						TargetTags: &targetRepositoryTags,
 					})
+					if err != nil {
+						log.Fatalf("Error importing image %s to registry %s: %v", repositoryURL+"/"+repositoryTag, targetRegistry.Name, err)
+					}
+					log.Info("Imported image %s to registry %s", repositoryURL+"/"+repositoryTag, targetRegistry.Name)
 				}
 			}
 
