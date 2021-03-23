@@ -7,7 +7,7 @@ It's possible to filter by docker tags.
 <!-- TOC -->
 
 - [acr-mirror](#acr-mirror)
-    - [Install / Building](#installation)
+    - [Installation](#installation)
     - [Using](#using)
         - [Update all repositories](#update-all-repositories)
     - [Example config.yaml](#example-configyaml)
