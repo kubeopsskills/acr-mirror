@@ -106,5 +106,9 @@ func GetRemoteTags(registryName string, repositoryName string, username string, 
 	}
 
 	allTags = append(allTags, tagResponse.Tags...)
+	if len(allTags) == 0 {
+		log.Warningf("The repository %s has no available tags", repositoryName)
+	}
+
 	return allTags, nil
 }
