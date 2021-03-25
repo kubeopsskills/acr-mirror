@@ -56,8 +56,9 @@ func FilterTags(tags []string, matchTags []string) []string {
 }
 
 // get the remote tags from the remote (v2) compatible registry.
-func GetRemoteTags(registryName string, repositoryName string, username string, password string) ([]string, error) {
-	url := fmt.Sprintf("https://%s.azurecr.io/v2/%s/tags/list", registryName, repositoryName)
+func GetRemoteTags(registryName string, repositoryName string, maxMirrorImages int, username string, password string) ([]string, error) {
+
+	url := fmt.Sprintf("https://%s.azurecr.io/v2/%s/tags/list?n=%d", registryName, repositoryName, maxMirrorImages)
 
 	var allTags []string
 	var (

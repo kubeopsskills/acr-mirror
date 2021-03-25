@@ -19,6 +19,7 @@ type Registries struct {
 	Name                    string   `yaml:"name"`
 	Repositories            []string `yaml:"repositories"`
 	SourceResourceGroupName string   `yaml:"resourceGroupName"`
+	MaxMirrorImages         *int     `yaml:"maxMirrorImages"`
 	Tags                    []string `yaml:"tags"`
 	Target                  []Target `yaml:"target"`
 }

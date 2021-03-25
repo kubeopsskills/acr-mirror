@@ -9,6 +9,8 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+const MAX_MIRROR_IMAGES = 100
+
 func FromSourceRegistryToTargetRegistry(sourceRegistryClient containerregistry.RegistriesClient, targetRegistryClient containerregistry.RegistriesClient, config Config, ctx context.Context) {
 
 	sourceRegistries := config.Registries
@@ -22,7 +24,11 @@ func FromSourceRegistryToTargetRegistry(sourceRegistryClient containerregistry.R
 
 		for _, repository := range sourceRegistry.Repositories {
 
-			tags, err := docker.GetRemoteTags(sourceRegistry.Name, repository, username, password)
+			maxMirrorImages := MAX_MIRROR_IMAGES
+			if sourceRegistry.MaxMirrorImages != nil {
+				maxMirrorImages = *sourceRegistry.MaxMirrorImages
+			}
+			tags, err := docker.GetRemoteTags(sourceRegistry.Name, repository, maxMirrorImages, username, password)
 			if err != nil {
 				log.Fatalf("Error getting remote tags for %s from registry %s: %v", repository, sourceRegistry.Name, err)
 			}

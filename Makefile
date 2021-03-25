@@ -1,6 +1,6 @@
 TARGET_PATH = bin
 GOARCH = GOARCH=amd64
-VERSION = 1.0.2
+VERSION = 1.0.3
 
 buildWindows:
 	env GOOS=windows $(GOARCH) go build -o ./$(TARGET_PATH)/windows/acr-mirror.exe github.com/kubeopsskills/acr-mirror/cmd/acr
@@ -12,6 +12,10 @@ buildMacOS:
 
 buildLinux:
 	env GOOS=linux $(GOARCH) go build -o ./$(TARGET_PATH)/linux/acr-mirror github.com/kubeopsskills/acr-mirror/cmd/acr
+	cd $(TARGET_PATH) && tar -zcvf acr-mirror-Linux-$(VERSION).tar.gz ./linux/acr-mirror
+
+buildARM64:
+	env GOOS=linux GOARCH=arm64 go build -o ./$(TARGET_PATH)/linux/acr-mirror github.com/kubeopsskills/acr-mirror/cmd/acr
 	cd $(TARGET_PATH) && tar -zcvf acr-mirror-Linux-$(VERSION).tar.gz ./linux/acr-mirror
 
 build: buildWindows buildMacOS buildLinux

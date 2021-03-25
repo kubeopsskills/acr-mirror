@@ -6,6 +6,7 @@ registries:
   resourceGroupName: "TestACR1"
   repositories: 
   - "nginx"
+  maxMirrorImages: 100
   tags:
   - "*"
   target: 

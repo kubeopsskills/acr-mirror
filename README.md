@@ -41,6 +41,7 @@ registries:
   resourceGroupName: "TestACR1"
   repositories: 
   - "nginx"
+  maxMirrorImages: # Limit number of images to be mirrored, default is 100
   tags: # specific tag match
   - "*"
   target: 
