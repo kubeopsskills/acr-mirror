@@ -16,8 +16,8 @@ It's possible to filter by docker tags.
 
 ## Installation
 
-Azure Container Registry Mirror Tool is available on Linux, macOS and Windows platforms.
-- Binaries for Linux, Windows and Mac are available as tarballs in the [release](https://github.com/kubeopsskills/acr-mirror/releases) page
+Azure Container Registry Mirror Tool is available on Linux, ARM, macOS and Windows platforms.
+- Binaries for Linux, ARM, Windows and Mac are available as tarballs in the [release](https://github.com/kubeopsskills/acr-mirror/releases) page
 
 ## Using
 
