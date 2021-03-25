@@ -1,6 +1,6 @@
 TARGET_PATH = bin
 GOARCH = GOARCH=amd64
-VERSION = 1.0.3
+VERSION = 1.0.4
 GOMODULE = github.com/kubeopsskills/acr-mirror/cmd/acr
 
 buildWindows:
