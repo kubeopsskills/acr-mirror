@@ -17,7 +17,7 @@ buildLinux:
 
 buildARM:
 	env GOOS=linux GOARCH=arm64 go build -o ./$(TARGET_PATH)/arm/acr-mirror $(GOMODULE)
-	cd $(TARGET_PATH) && tar -zcvf acr-mirror-ARM-$(VERSION).tar.gz ./linux/acr-mirror
+	cd $(TARGET_PATH) && tar -zcvf acr-mirror-ARM-$(VERSION).tar.gz ./arm/acr-mirror
 
 build: buildWindows buildMacOS buildLinux buildARM
 
